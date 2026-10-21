@@ -9,6 +9,18 @@ Local-First Lightweight Desktop SQL & Redis Workbench for Developers.
 
 ---
 
+## 📸 界面预览 (Screenshots)
+
+### 暗色模式（默认）
+
+![jq-litedb 暗色模式](docs/product-imgs/main-page-dark.png)
+
+### 亮色模式
+
+![jq-litedb 亮色模式](docs/product-imgs/main-page-light.png)
+
+---
+
 ## ⚡ 核心亮点
 
 - **多引擎支持**：内置 MySQL (8.0+)、PostgreSQL (14+) 关系型数据库与 Redis (6.0+) 键值缓存管理。
@@ -27,7 +39,7 @@ Local-First Lightweight Desktop SQL & Redis Workbench for Developers.
 
 前往 [**GitHub Releases 最新发布页**](https://github.com/LuffyJJQ/jq-litedb-releases/releases/latest) 下载最新版本的安装程序：
 
-- **安装包**：`jq-litedb Setup 0.1.0.exe`（支持自定义安装路径）
+- **安装包**：`jq-litedb-Setup-0.2.0.exe`（支持自定义安装路径与自动增量更新）
 
 ### 系统要求
 
