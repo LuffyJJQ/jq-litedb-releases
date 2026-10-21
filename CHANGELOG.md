@@ -1,50 +1,63 @@
-# 更新日志 (CHANGELOG)
+# Changelog
 
-本项目遵循 [SemVer 语义化版本号](https://semver.org/lang/zh-CN/) 规范。
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+> Chinese version available: [CHANGELOG.zh-CN.md](./CHANGELOG.zh-CN.md)
+
+---
+
+## [v0.2.0] - 2026-10-21
+
+### Added
+- **Constrained Workspace Layout Engine**:
+  - Independent resizable and collapsible left database tree (`180–320px`) and right AI assistant panel (`300–480px`).
+  - Vertical split pane supporting drag resize and one-click collapse of the query results panel into a compact `32px` tab strip.
+  - Central canvas viewport guard ensuring a minimum width of `480px`.
+  - Atomic layout state persistence powered by Zustand and stored safely in `localStorage`.
+- **Zero Layout Thrashing 60fps Resizing**:
+  - Eliminated synchronous DOM reflows by caching bounding client rects on mousedown.
+  - Batched geometric style application using `requestAnimationFrame`.
+  - Global user-select and cursor lifecycle locks during drag interactions.
+- **Documentation & Internationalization**:
+  - Dual-language documentation support with default English `README.md` and Chinese `README.zh-CN.md`.
+  - High-resolution dark and light theme screenshots.
 
 ---
 
 ## [v0.1.0-beta.1] - 2026-10-21
 
-`jq-litedb` (LiteSQL Workbench) 首个公开测试版本，支持 Windows 11 / 10 x64 桌面平台。
+First public beta release of `jq-litedb` (LiteSQL Workbench) for Windows 11 / 10 x64.
 
-### ✨ 主要功能亮点
-
-#### 1. 桌面容器与安全边界
-- 采用 Electron 沙盒安全架构，禁用 Node 集成，隔离本地 API；
-- 内嵌自包含 Spring Boot 单体后端服务，仅监听 `127.0.0.1` 环回接口；
-- 每次启动生成高熵随机 API Token 并进行严格 Host / Origin 校验；
-- **落地优雅干净软件原则**：数据与配置 100% 收敛至操作系统标准路径 `%APPDATA%\jq-litedb\`，绝不污染用户主目录；
-- 退出时级联终止后端子进程，零僵尸残留。
-
-#### 2. 多源数据库与连接管理
-- 支持 MySQL (8.0+)、PostgreSQL (14+) 关系型数据库与 Redis (6.0+) 键值缓存；
-- SQLite + Flyway 本地元数据持久化；
-- **本地硬件密钥 AES-256 加密保存**：支持本地硬件指纹安全加密保存密码，连接免密秒开；未勾选保存时仅会话内存暂存；
-- **数据库名称选填**：支持留空连接 MySQL / PostgreSQL 实例主机，按需浏览实例下全部库与元数据；
-- 默认内置 5 秒连接超时控制，防止网络挂死。
-
-#### 3. 稳态交互与全界面脱水降噪
-- **落地 Linear 零布局抖动规范**：连接测试与表单反馈采用预留槽位及底栏物理锚定，彻底杜绝高度弹跳与按钮位移；
-- **低噪音界面设计**：移除多处重复的快捷键播报与状态叫喊，工作台环境安静、克制、聚焦内容。
-
-#### 4. 元数据浏览与受限表预览
-- 分层按需读取 Schema、表、视图、字段类型、主键与注释；
-- **受限快速表预览**：默认 100 行，单页上限 500 行，最大偏移量 5000；严格杜绝全表 `COUNT(*)` 慢查询。
-
-#### 5. SQL 编辑器与只读 AST 安全校验
-- CodeMirror 6 编辑器，语法高亮、行号、暗/亮主题自适应、`Ctrl+Enter` 运行选区或全量；
-- 默认纯净空白初始态，移除多余占位噪音；
-- **JSqlParser AST 强校验**：仅允许单条只读 `SELECT`，物理拦截多语句拼接、DML/DDL、`SELECT INTO` 以及 `FOR UPDATE` / `FOR SHARE` 锁定读取；
-- 全局并发限制最多 4 个（超限返回 429）、15 秒执行超时、最多返回 500 行及 2MB 大小熔断保护。
-
-#### 6. Redis 键浏览器与控制台
-- 非阻塞 `SCAN` 流式检索（杜绝阻塞主线程的 `KEYS *`）；
-- String、Hash、List、Set、ZSet 深度结构解析与可视化；
-- 交互控制台支持常用诊断命令，自动拦截高危管理命令。
-
-#### 7. BYOK AI SQL 辅助生成
-- 支持用户自带 API Key 接入任意 OpenAI 兼容大模型（OpenAI, DeepSeek, 通义千问等）；
-- 本地配置原子文件替换安全保存；
-- 受限注入 Schema（最大 30 表、200 列，**零表行数据传输**）；
-- 生成 SQL 返回前进行 AST 只读校验，一键填入编辑器，必须经人工审查触发。
+### Added
+- **Desktop Runtime & Security Boundary**:
+  - Electron sandbox architecture without node integration for renderer processes.
+  - Embedded Spring Boot local service bound strictly to `127.0.0.1` loopback address.
+  - High-entropy random API token generated on every launch with strict Host and Origin validation.
+  - Clean Software Principles: 100% of data and configuration stored in `%APPDATA%\jq-litedb\`.
+  - Clean cascading termination of backend processes upon application exit.
+- **Multi-Engine Relational & Cache Management**:
+  - Support for MySQL (8.0+), PostgreSQL (14+), and Redis (6.0+).
+  - SQLite + Flyway local metadata storage.
+  - AES-256 hardware-bound password encryption with optional in-memory-only retention.
+  - Optional database name field for instance-level exploration.
+  - Built-in 5-second connection timeout guard.
+- **Stable UX & Noise-Free Workspace**:
+  - Linear anti-jitter guidelines with anchored notification slots.
+  - Low-noise visual design without duplicate keyboard shortcut banners.
+- **Schema Exploration & Fast Preview**:
+  - Hierarchical tree for schemas, tables, views, primary keys, data types, and comments.
+  - Safe 100-row preview without slow full-table `COUNT(*)` queries.
+- **SQL Editor & Read-Only AST Guard**:
+  - CodeMirror 6 editor with syntax highlighting and automatic theme adaptation.
+  - JSqlParser AST validation strictly permitting single read-only `SELECT` queries.
+  - Global query concurrency limit (max 4), 15s timeout, and 2MB payload circuit breaker.
+- **Redis Browser & Console**:
+  - Non-blocking cursor-based `SCAN` streaming retrieval.
+  - Deep inspection for String, Hash, List, Set, and ZSet structures.
+  - Integrated interactive console with automatic blocking of destructive management commands.
+- **BYOK AI SQL Assistant**:
+  - Bring-Your-Own-Key integration with OpenAI-compatible endpoints (DeepSeek, OpenAI, Qwen, etc.).
+  - Schema-only context extraction with zero table row data leakage.
