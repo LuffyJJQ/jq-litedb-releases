@@ -74,8 +74,8 @@ Download the latest installer from the [**GitHub Releases Page**](https://github
 
 ## 📖 Documentation & Links
 
-- [User Guide (使用指南)](./docs/user-guide.md)
-- [Changelog (版本更新日志)](./CHANGELOG.md)
+- [User Guide](./docs/user-guide.md)
+- [Changelog](./CHANGELOG.md)
 
 ---
 

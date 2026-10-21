@@ -1,67 +1,81 @@
-# jq-litedb 用户使用指南 (User Guide)
+# jq-litedb User Guide
 
-欢迎使用 **jq-litedb (LiteSQL Workbench)**。本文档将帮助您快速了解安装、配置与使用流程。
+[English](user-guide.md) | [简体中文](user-guide.zh-CN.md)
 
----
-
-## 一、安装与启动
-
-1. 在 GitHub Releases 页面下载 `jq-litedb Setup 0.1.0.exe`。
-2. 双击安装程序，可根据需要选择安装目录（默认安装至 `%LOCALAPPDATA%\Programs\jq-litedb`，无需管理员提权）。
-3. 安装完成后启动应用，系统将自动拉起内置服务并在几秒内打开主工作台窗口。
+Welcome to **jq-litedb (LiteSQL Workbench)**. This guide walks you through installation, configuration, and everyday workflows.
 
 ---
 
-## 二、优雅干净软件规范 (本地存储说明)
+## 1. Installation & Startup
 
-jq-litedb 严格遵守干净软件规范，**绝不在您的个人用户目录根下（`C:\Users\<username>`）创建任何杂乱文件**：
+1. Go to the [GitHub Releases](https://github.com/LuffyJJQ/jq-litedb-releases/releases/latest) page and download `jq-litedb-Setup-0.2.0.exe`.
+2. Double-click the installer. You can customize the target installation directory (defaults to `%LOCALAPPDATA%\Programs\jq-litedb`, requiring no administrator privileges).
+3. Once installed, launch the application. The system will silently bootstrap the local embedded service and open the main workbench within seconds.
 
-- **所有配置与数据库文件统一存放于**：
+---
+
+## 2. Clean Software Principles (Local Storage)
+
+jq-litedb strictly follows clean software architecture and **never pollutes your user home directory (`C:\Users\<username>`)**:
+
+- **Unified Data & Config Directory**:
   ```text
   %APPDATA%\jq-litedb\
-  ├── jqlitedb.sqlite         # 保存您的连接配置元数据（不含密码）
-  ├── ai-settings.json        # 您的本地 AI 服务端点与 Key 配置
-  └── logs/                   # 应用运行日志
+  ├── jqlitedb.sqlite         # Stores your connection metadata (AES-256 encrypted passwords)
+  ├── ai-settings.json        # Your BYOK AI endpoint and API key settings
+  ├── settings.json           # Application preferences (theme, layout dimensions)
+  └── logs/                   # Application runtime logs
   ```
-- **密码不落盘保护**：数据库密码仅在连接期间暂存于内存，应用关闭后即刻销毁，重启后需重新输入，保障高等级数据安全。
-- **零僵尸进程**：当您关闭应用窗口时，系统自动级联清理所有后台服务子进程，不占用端口与内存。
+- **Encrypted Password Storage**: Passwords can be saved using hardware-bound AES-256 encryption. If unchecked, credentials are held only in memory for the active session and wiped upon exit.
+- **Zero Zombie Processes**: When closing the desktop window, all child backend processes are immediately terminated, releasing ports and memory cleanly.
 
 ---
 
-## 三、管理数据库连接
+## 3. Database Connection Management
 
-### 1. 新建连接
-- 在左侧栏点击顶部 **`+` (新建连接)** 按钮；
-- 选择数据库类型：**MySQL**、**PostgreSQL** 或 **Redis**；
-- 输入主机、端口、数据库名、用户名与本次连接密码；
-- 点击 **测试连接** 验证网络连通性；
-- 点击 **保存** 将连接元数据持久化在本地。
+### 3.1 Creating a Connection
+- Click the **`+` (New Connection)** button in the left sidebar header;
+- Select the database type: **MySQL**, **PostgreSQL**, or **Redis**;
+- Enter the Host, Port, Database name (optional for instance exploration), Username, and Password;
+- Check **Save Password** if you wish to persist it encrypted locally;
+- Click **Test Connection** to verify network reachability;
+- Click **Save** to persist the connection metadata.
 
-### 2. 浏览表结构与预览数据
-- 在左侧树中点击展开连接；
-- 展开数据库 / Schema，选择数据表；
-- 下方工作区将自动呈现受限的 **前 100 行表数据预览**；
-- 点击表名旁边的列展开按钮，可查看列名、数据类型、是否主键及字段注释。
-
----
-
-## 四、执行 SQL 查询
-
-1. 在中央上方的 SQL 编辑器中输入您的查询语句；
-2. **安全只读限制**：jq-litedb 专为安全诊断设计，**仅支持单条只读 `SELECT` 语句**（支持 CTE `WITH ... SELECT`），禁止执行 `UPDATE`、`DELETE`、`DROP`、`ALTER` 等变更操作；
-3. 点击顶部导航栏的 **运行** 按钮，或在编辑器中按下快捷键：
-   - **`Ctrl + Enter`**：运行当前选中的 SQL（若未选中则运行编辑器全部内容）；
-4. 查询结果将在下方以虚拟网格呈现，双击任意单元格可快速复制内容。
+### 3.2 Schema Browsing & Table Preview
+- Expand any connection in the left sidebar tree;
+- Expand databases / schemas to view tables and views;
+- Click a table to display an instant, constrained **100-row table preview** in the bottom panel;
+- Expand the table node to inspect columns, data types, primary key flags, and comments.
 
 ---
 
-## 五、使用 BYOK AI SQL 助手
+## 4. Querying with the SQL Editor
 
-1. 点击右上角的 **`AI 助手`** 按钮展开侧边抽屉；
-2. 首次使用请点击右上角的 **设置** 展开配置卡片：
-   - **Base URL**：支持任意 OpenAI 兼容端点（如 `https://api.deepseek.com/v1` 或 `https://dashscope.aliyuncs.com/compatible-mode/v1`）；
-   - **Model**：填写模型名称（如 `deepseek-chat` 或 `qwen-plus`）；
-   - **API Key**：填写您自己的 API 密钥并点击保存（本地原子写入）；
-3. 在下方输入自然语言需求（例如：“查询各部门平均工资大于 8000 的部门”）；
-4. 点击 **生成 SQL**，AI 将基于当前连接的受限 Schema（无真实行数据）生成标准只读 SQL；
-5. 点击 **放入编辑器** 填入主编辑器，人工审阅无误后按 `Ctrl+Enter` 运行。
+1. Enter your SQL query in the CodeMirror 6 editor located in the central pane;
+2. **Read-Only Safety Guard**: jq-litedb is purpose-built for safe diagnostic exploration. It strictly permits single read-only `SELECT` statements (including CTE `WITH ... SELECT`). All mutating operations (`UPDATE`, `DELETE`, `DROP`, `ALTER`, `SELECT INTO`, locking reads) are physically rejected;
+3. Execute queries using:
+   - Click the **Run** button in the editor toolbar, or
+   - Press **`Ctrl + Enter`** to execute the highlighted selection (or the entire script if nothing is selected);
+4. Query results render in a virtualized data grid with row numbering. Double-click any cell to copy its content to the clipboard.
+
+---
+
+## 5. Non-Blocking Redis Browser
+
+1. Connect to a Redis instance from the left sidebar;
+2. Browse keys through streaming non-blocking `SCAN` iteration (never blocks the server with `KEYS *`);
+3. Inspect key details and data structures: String (Text/JSON), Hash, List, Set, and ZSet;
+4. Open the integrated Redis console for direct diagnostics with built-in safety filtering against destructive commands.
+
+---
+
+## 6. BYOK AI SQL Assistant
+
+1. Click the **AI Assistant** button on the right to toggle the side drawer;
+2. For initial setup, open the drawer settings:
+   - **Base URL**: Any OpenAI-compatible endpoint (e.g., `https://api.deepseek.com/v1` or `https://dashscope.aliyuncs.com/compatible-mode/v1`);
+   - **Model**: Model identifier (e.g., `deepseek-chat` or `qwen-plus`);
+   - **API Key**: Enter your personal API key (saved atomically to `%APPDATA%\jq-litedb\ai-settings.json`);
+3. Enter your natural language prompt (e.g., *"Find departments where the average salary exceeds 8000"*);
+4. Click **Generate SQL**. The assistant retrieves table metadata (schemas only, zero row data transmission) and produces clean, read-only SQL;
+5. Click **Insert into Editor** to review the SQL before executing it manually with `Ctrl + Enter`.

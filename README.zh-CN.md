@@ -75,8 +75,8 @@ Local-First Lightweight Desktop SQL & Redis Workbench for Developers.
 
 ## 📖 使用指南与文档
 
-- [完整使用指南 (User Guide)](./docs/user-guide.md)
-- [版本更新日志 (Changelog)](./CHANGELOG.md)
+- [使用指南 (中文)](./docs/user-guide.zh-CN.md) | [User Guide (English)](./docs/user-guide.md)
+- [更新日志 (中文)](./CHANGELOG.zh-CN.md) | [Changelog (English)](./CHANGELOG.md)
 
 ---
 
