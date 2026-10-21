@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Executables & Installers (Upload to GitHub Releases, DO NOT commit to git tree)
+*.exe
+*.zip
+*.tar.gz
+*.blockmap
+*.7z
+
+# Temp & Logs
+*.log
+.idea/
+.vscode/

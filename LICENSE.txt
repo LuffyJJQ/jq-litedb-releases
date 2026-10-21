@@ -1,0 +1,21 @@
+jq-litedb (LiteSQL Workbench) Distribution & Documentation License
+
+Copyright (c) 2026 jq-litedb. All rights reserved.
+
+The documentation, user guides, and materials contained in this repository 
+are provided solely for the purpose of introducing, evaluating, and using 
+the jq-litedb desktop application.
+
+The jq-litedb desktop application and its executable binary installers 
+are proprietary software provided free of charge ("Freeware") for personal, 
+evaluation, and internal business use, subject to the following terms:
+
+1. You may download and run the application binaries on your devices.
+2. You may NOT decompile, reverse engineer, disassemble, modify, 
+   or create derivative works from the application binaries.
+3. You may NOT redistribute the binary installers for commercial sale 
+   without explicit permission.
+
+THE SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
