@@ -39,14 +39,18 @@ Local-First Lightweight Desktop SQL & Redis Workbench for Developers.
 ## 🚀 核心功能快速览
 
 ### 1. 关系型数据库管理 (MySQL / PostgreSQL)
-- **连接安全**：密码仅在本次会话内存中暂存，绝不写入本地文件、前端 Storage 或日志；
+- **连接安全与免密秒连**：支持本地硬件密钥 AES-256 加密保存，未勾选时仅本次会话内存暂存，绝不明文落盘；支持整机实例多库浏览（库名选填）；
 - **分层 Schema 树**：按需展开 Database / Schema，读取表、视图、字段主键、数据类型与字段注释；
-- **CodeMirror 6 SQL 编辑器**：支持高亮、行号、暗亮主题自适应、`Ctrl+Enter` 运行选区或全量。
+- **CodeMirror 6 SQL 编辑器**：纯净无噪音控制台，支持语法高亮、暗亮主题自适应、`Ctrl+Enter` 运行选区或全量。
 
 ### 2. Redis 键值管理
 - **分批游标检索**：非阻塞 `SCAN` 分批加载与 Pattern 模糊匹配；
 - **数据结构可视化**：String 文本/JSON、Hash 键值表、List 索引序、Set 集合、ZSet 权重序；
 - **安全控制台**：提供原生命令输入与响应输出，自动拦截高危危险命令。
+
+### 3. 稳态交互与工作台降噪
+- **Linear 零布局抖动规范**：异步反馈与连通性测试采用预留槽位与底栏物理锚定，彻底杜绝内容弹跳与按钮位移；
+- **低噪音界面哲学**：去除多处快捷键重复提示与状态叫喊，打造专注、安静的专业开发者工作空间。
 
 ### 3. BYOK AI SQL 助手
 - 打开右侧 AI 面板，配置您的 OpenAI 兼容端点（如 `https://api.deepseek.com/v1`）与 API Key；
